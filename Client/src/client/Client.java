@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  *
  * @author thhia
  */
-public class Client extends javax.swing.JFrame implements KeyListener {
+public class Client extends javax.swing.JFrame {
 
     /**
      * Creates new form Client
