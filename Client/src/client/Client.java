@@ -252,7 +252,7 @@ public class Client extends javax.swing.JFrame implements KeyListener {
             this.inpPort.setText("");
             try {
                 this.connectServer(name, ip, port);
-                new Thread(new msg()).start();
+                new Thread(new msg(this.socket)).start();
             } catch (IOException ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -296,31 +296,44 @@ public class Client extends javax.swing.JFrame implements KeyListener {
     //    }
     //}
     private class msg implements Runnable {
+        private InputStreamReader inpReader;
+        private BufferedReader bufferR;
+        public msg(Socket sock) throws IOException{
+            InputStream inpData = sock.getInputStream();
+            this.inpReader = new InputStreamReader(inpData);
+        
+        }
         @Override
         public void run() {
-            System.out.println("Deus é mais");
             try {
-                this.receiverMsg();
+                while(connect){
+                    this.bufferR = new BufferedReader(inpReader);
+                    String msg = "";
+                    System.out.println("read "+bufferR.ready());
+                    //if(!bufferR.ready()){
+                    msg = bufferR.readLine();           
+                    System.out.println(msg);
+                    feedMsg.append(msg+"\r\n");
+                    //}
+                }
             } catch (IOException ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-            public void receiverMsg() throws IOException{
-                if(connect){
-                    InputStream inpData = socket.getInputStream();
-                    InputStreamReader inpReader = new InputStreamReader(inpData);
-                    BufferedReader bufferR = new BufferedReader(inpReader);
-                    String msg = "";
-                    System.out.println("Buffer"+bufferR);
-                    System.out.println("read"+bufferR.ready());
-                    if(bufferR.ready()){
-                        System.out.println("chegou");
-                        msg = bufferR.readLine();           
-                        System.out.println(msg);
-                        feedMsg.append(msg+"\r\n");
-                    }
-                }
-            }
+        //public void receiverMsg() throws IOException{
+        //    if(connect){
+        //        this.bufferR = new BufferedReader(inpReader);
+        //        String msg = "";
+          ///      System.out.println("Buffer"+bufferR);
+         //       System.out.println("read"+bufferR.ready());
+        //        if(bufferR.ready()){
+        //            System.out.println("chegou");
+        //            msg = bufferR.readLine();           
+        //            System.out.println(msg);
+        //            feedMsg.append(msg+"\r\n");
+        //        }
+        //    }
+        //}
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
