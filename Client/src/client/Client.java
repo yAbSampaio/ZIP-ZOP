@@ -59,7 +59,7 @@ public class Client extends javax.swing.JFrame implements KeyListener {
     }
 
     public void out()throws IOException{
-        this.writerBuf.write("Desconectado \r\n");
+        this.writerBuf.write("Desconectado");
         this.feedMsg.append("Desconectado \r\n");
         this.writerBuf.close();
         this.outWriting.close();
@@ -277,25 +277,14 @@ public class Client extends javax.swing.JFrame implements KeyListener {
        }
     }
 
-    public void keyReleased(KeyEvent arg0) {
-      // TODO Auto-generated method stub
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void keyTyped(KeyEvent arg0) {
-      // TODO Auto-generated method stub
-    }
     /**
      * @param args the command line arguments
      */
-    //@Override
-    //public void run() {
-    //    System.out.println("Deus é mais");
-    //    try {
-    //        this.receiverMsg();
-    //    } catch (IOException ex) {
-    //        Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-    //    }
-    //}
     private class msg implements Runnable {
         private InputStreamReader inpReader;
         private BufferedReader bufferR;
@@ -310,8 +299,10 @@ public class Client extends javax.swing.JFrame implements KeyListener {
                 while(connect){
                     this.bufferR = new BufferedReader(inpReader);
                     String msg = "";
+                    System.out.println("Buffer "+bufferR);
                     System.out.println("read "+bufferR.ready());
                     //if(!bufferR.ready()){
+                    System.out.println("chegou");
                     msg = bufferR.readLine();           
                     System.out.println(msg);
                     feedMsg.append(msg+"\r\n");
@@ -321,20 +312,6 @@ public class Client extends javax.swing.JFrame implements KeyListener {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //public void receiverMsg() throws IOException{
-        //    if(connect){
-        //        this.bufferR = new BufferedReader(inpReader);
-        //        String msg = "";
-          ///      System.out.println("Buffer"+bufferR);
-         //       System.out.println("read"+bufferR.ready());
-        //        if(bufferR.ready()){
-        //            System.out.println("chegou");
-        //            msg = bufferR.readLine();           
-        //            System.out.println(msg);
-        //            feedMsg.append(msg+"\r\n");
-        //        }
-        //    }
-        //}
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
