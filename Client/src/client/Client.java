@@ -32,6 +32,7 @@ public class Client extends javax.swing.JFrame {
      */
     public Client() {
         this.connect = false;
+        this.first = true;
         initComponents();
         
     }
@@ -45,21 +46,29 @@ public class Client extends javax.swing.JFrame {
             this.writerBuf.write(name+"\r\n");
             this.writerBuf.flush();      
             this.connect = true;
-            JOptionPane.showMessageDialog(null, "Conectado com sucesso!!!");
+            this.sendMsg("yes");
         }
         catch (IOException exp) {
             JOptionPane.showMessageDialog(null, "Não foi possivel conecctar com server");
         }
     }
     public void sendMsg(String msg) throws IOException{
-        
-        this.writerBuf.write(msg+"\r\n");
-        this.feedMsg.append( this.inpName.getText() + ": "+this.inpMsg.getText()+"\r\n");
-        this.writerBuf.flush();
+        if(this.first){
+            this.writerBuf.write("Entrei !!\r\n");
+            this.feedMsg.append( "Você foi conectado com sucesso!!!\r\n");
+            this.writerBuf.flush();
+            this.first = false;
+        }
+        else{
+            this.writerBuf.write(msg+"\r\n");
+            this.feedMsg.append( this.inpName.getText() + ": "+this.inpMsg.getText()+"\r\n");
+            this.writerBuf.flush();
+        }
     }
 
     public void out()throws IOException{
         this.writerBuf.write("Desconectado");
+        this.writerBuf.flush();
         this.feedMsg.append("Desconectado \r\n");
         this.writerBuf.close();
         this.outWriting.close();
@@ -264,23 +273,6 @@ public class Client extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnLoginActionPerformed
-    
-    public void keyPressed(KeyEvent e) {
-        System.out.println("Enter");
-        if(e.getKeyCode() == KeyEvent.VK_ENTER){
-           try {
-              this.sendMsg(this.inpMsg.getText());
-           } catch (IOException e1) {
-               // TODO Auto-generated catch block
-               e1.printStackTrace();
-           }
-       }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     /**
      * @param args the command line arguments
@@ -299,10 +291,7 @@ public class Client extends javax.swing.JFrame {
                 while(connect){
                     this.bufferR = new BufferedReader(inpReader);
                     String msg = "";
-                    System.out.println("Buffer "+bufferR);
-                    System.out.println("read "+bufferR.ready());
                     //if(!bufferR.ready()){
-                    System.out.println("chegou");
                     msg = bufferR.readLine();           
                     System.out.println(msg);
                     feedMsg.append(msg+"\r\n");
@@ -336,4 +325,5 @@ public class Client extends javax.swing.JFrame {
     private OutputStream outputData;
     private Writer outWriting;
     private BufferedWriter writerBuf;
+    private boolean first;
 }
