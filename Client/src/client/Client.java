@@ -65,7 +65,6 @@ public class Client extends javax.swing.JFrame {
             this.writerBuf.flush();
         }
     }
-
     public void out()throws IOException{
         this.writerBuf.write("Desconectado");
         this.writerBuf.flush();

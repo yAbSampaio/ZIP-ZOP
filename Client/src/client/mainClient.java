@@ -42,13 +42,6 @@ public class mainClient {
         java.awt.EventQueue.invokeLater(new Runnable()  {
             public void run()  {
                 new Client().setVisible(true);
-                //Client chat = new Client();
-                //try {
-                //    chat.receiverMsg();
-                //} catch (IOException ex) {
-                //    Logger.getLogger(mainClient.class.getName()).log(Level.SEVERE, null, ex);
-                //}
-                
             }
         });
     }
