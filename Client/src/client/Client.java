@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author thhia
+ * @author Thiago Jansen, Igor Oliveira
  */
 public class Client extends javax.swing.JFrame {
 

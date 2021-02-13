@@ -89,7 +89,6 @@ public class Server extends Thread {
             return 1;
         }
         for ( int i = 0; i < port.length(); i++ ){
-            // verifica se o char não é um dígito
             if (!Character.isDigit(port.charAt(i)) ) {
                 return 1; 
             }
@@ -117,7 +116,6 @@ public class Server extends Thread {
     public static void main(String []args) {
 
         try{
-          //Cria os objetos necessário para instânciar o servidor
           
           // Interface
           JLabel lblMessage = new JLabel("Informe a porta do Servidor");

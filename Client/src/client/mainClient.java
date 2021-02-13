@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author thhia
+ * @author Thiago Jansen, Igor Oliveira
  */
 public class mainClient {
     public static void main(String args[]) {
